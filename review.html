@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Uni-Tech Machines — Design Review</title>
+  <link rel="icon" href="img/logos/fevicon.png" />
+  <style>
+    body{
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: #f0eee9;
+    }
+    iframe.artboard-frame{
+      width: 100%; height: 100%; border: 0; display: block;
+      background: #121212;
+    }
+    .ab-cover{
+      width: 100%; height: 100%; padding: 24px;
+      display: flex; flex-direction: column; justify-content: space-between; gap: 12px;
+      background: #f5f4ef; color: #0a0a0a;
+      border-left: 4px solid #0E8A47;
+    }
+    .ab-cover .num{ font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: .14em; color: #0E8A47; }
+    .ab-cover h3{ font-family: 'Fraunces', serif; font-weight: 300; font-size: 22px; line-height: 1.05; letter-spacing: -0.015em; margin: 0; }
+    .ab-cover h3 em{ font-style: italic; }
+    .ab-cover p{ font-family: 'Inter', system-ui, sans-serif; font-size: 11.5px; line-height: 1.45; color: #4a4a45; margin: 0; }
+    .ab-cover a{ color: #0E8A47; text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div id="canvas-root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="design-canvas.jsx"></script>
+
+  <script type="text/babel">
+    function Frame({ src }){
+      return (
+        <iframe
+          className="artboard-frame"
+          src={src}
+          loading="lazy"
+          title={src}
+          scrolling="no"
+        />
+      );
+    }
+
+    function App(){
+      const HOME_W = 1440, HOME_H = 6200;
+      const SUB_W = 1440, SUB_H = 5400;
+      const CAT_H = 4400;
+
+      return (
+        <DesignCanvas
+          title="Uni-Tech Machines — Side-by-side Review"
+          subtitle="The site itself lives at index.html — open that to walk it as a real website. This canvas is for reviewing all 5 pages side-by-side."
+        >
+          <DCSection
+            id="site"
+            title="The site · all five pages"
+            subtitle="Each artboard is the live page. Open any one fullscreen (⤢ icon) to interact, or just visit index.html to use the site normally."
+          >
+            <DCArtboard id="home" label="① Home — The Workshop Journal" width={HOME_W} height={HOME_H}>
+              <Frame src="index.html" />
+            </DCArtboard>
+            <DCArtboard id="catalog" label="② Catalog — 78 SKUs, filter + search" width={SUB_W} height={CAT_H}>
+              <Frame src="catalog.html" />
+            </DCArtboard>
+            <DCArtboard id="product" label="③ Product Plate — Heavy Duty Gear Head Lathe" width={SUB_W} height={SUB_H}>
+              <Frame src="product.html?id=heavy-duty-gear-head-lathe" />
+            </DCArtboard>
+            <DCArtboard id="about" label="④ Workshop — the dossier" width={SUB_W} height={SUB_H}>
+              <Frame src="about.html" />
+            </DCArtboard>
+            <DCArtboard id="contact" label="⑤ Inquiry Desk — contact" width={SUB_W} height={4800}>
+              <Frame src="contact.html" />
+            </DCArtboard>
+          </DCSection>
+
+          <DCSection
+            id="notes"
+            title="How to review"
+            subtitle=""
+          >
+            <DCArtboard id="note-1" label="Use the real site" width={420} height={300}>
+              <div className="ab-cover">
+                <span className="num">REVIEW · 01</span>
+                <h3>Open <em>index.html</em> for the real site experience.</h3>
+                <p>Walk it like a normal website — clickthroughs, search, form submission, scroll. All five pages are connected.</p>
+              </div>
+            </DCArtboard>
+            <DCArtboard id="note-2" label="Or use this canvas for side-by-side" width={420} height={300}>
+              <div className="ab-cover">
+                <span className="num">REVIEW · 02</span>
+                <h3>This view shows <em>everything at once.</em></h3>
+                <p>Useful for comparing pages or referring to a specific layout. Click any artboard ⤢ to focus it.</p>
+              </div>
+            </DCArtboard>
+            <DCArtboard id="note-3" label="Comment on anything" width={420} height={300}>
+              <div className="ab-cover">
+                <span className="num">REVIEW · 03</span>
+                <h3>Right-click any element to leave a <em>comment.</em></h3>
+                <p>Or just tell me in chat — "the hero is too dark", "the catalog cards need more padding", "swap this photo" — and I'll iterate.</p>
+              </div>
+            </DCArtboard>
+          </DCSection>
+        </DesignCanvas>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('canvas-root')).render(<App />);
+  </script>
+
+</body>
+</html>
