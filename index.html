@@ -13,6 +13,10 @@
   <link rel="canonical" href="https://www.unitechmachines.in/" />
   <meta name="theme-color" content="#0E8A47" />
   <link rel="icon" href="img/logos/fevicon.png" />
+  <link rel="apple-touch-icon" href="img/logos/unitech-logo-rounded.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="format-detection" content="telephone=yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -101,8 +105,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/shared.css" />
+  <!-- Published theme (overwritten by Theme Studio → Publish to site). Loads BEFORE customizer JS so visitors get the published theme with no flash. -->
+  <link rel="stylesheet" href="css/theme-published.css" id="utm-theme-published" />
   <!-- Theme Studio — live color/font customizer. Activates with ?customize or Ctrl+Shift+T -->
-  <script src="js/theme-customizer.js"></script>
+  <script src="js/theme-customizer.js" defer></script>
   <style>
     body{ background: var(--ink-2); }
 
@@ -413,7 +419,7 @@
   <header class="masthead">
     <div class="wrap masthead-inner">
       <div class="left">Vol. 04 · Mon, May 18 2026 · Rajkot, IN</div>
-      <div class="center"><img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo" data-utm-logo /><small>The Workshop Journal · est. 1986</small></div>
+      <div class="center"><img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo" data-utm-logo loading="eager" decoding="async" fetchpriority="high" /><small>The Workshop Journal · est. 1986</small></div>
       <div class="right">ISO 9001 · GST 24ADLPV8104E1ZI</div>
     </div>
   </header>
@@ -551,7 +557,7 @@
         <a class="feature-card big" href="product.html?id=16-feet-heavy-duty-plano-lathe">
           <div class="photo">
             <span class="ribbon">Extra Heavy</span>
-            <img src="img/products/heavy-duty-plano-type-lathe-machine.jpg" alt="16 ft Plano Type Lathe" />
+            <img src="img/products/heavy-duty-plano-type-lathe-machine.jpg" alt="16 ft Plano Type Lathe" loading="lazy" decoding="async" />
           </div>
           <div>
             <div class="id">UT/PL-16 · NEW</div>
@@ -574,7 +580,7 @@
 
         <a class="feature-card" href="product.html?id=all-geared-high-speed-lathe-machine">
           <div class="photo">
-            <img src="img/products/all-geared-high-speed-lathe-machine.jpg" alt="All Geared High Speed" />
+            <img src="img/products/all-geared-high-speed-lathe-machine.jpg" alt="All Geared High Speed" loading="lazy" decoding="async" />
           </div>
           <div>
             <div class="id">UT/AG-12</div>
@@ -595,7 +601,7 @@
 
         <a class="feature-card" href="product.html?id=7-feet-heavy-duty-lathe">
           <div class="photo">
-            <img src="img/products/7-feet-heavy-duty-lathe-machines.jpg" alt="7 Feet Heavy Duty Lathe" />
+            <img src="img/products/7-feet-heavy-duty-lathe-machines.jpg" alt="7 Feet Heavy Duty Lathe" loading="lazy" decoding="async" />
           </div>
           <div>
             <div class="id">UT/HD-7</div>
@@ -652,7 +658,7 @@
       </div>
       <div class="quote-grid">
         <div class="quote-photo">
-          <img src="img/products/uni-tech-geared-lathes.jpg" alt="Workshop floor" />
+          <img src="img/products/uni-tech-geared-lathes.jpg" alt="Workshop floor" loading="lazy" decoding="async" />
           <div class="stamp">Plot 04, Gondal Rd. · Rajkot</div>
         </div>
         <div>
@@ -717,7 +723,7 @@
     <div class="wrap">
       <div class="foot-grid">
         <div class="foot-brand">
-          <img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo sm" data-utm-logo style="margin: 0 0 18px 0;" />
+          <img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo sm" data-utm-logo style="margin: 0 0 18px 0;" loading="lazy" decoding="async" />
           <p>The Workshop Journal · Vol. 04 · 2026. Heavy-duty lathes & metalworking machinery, made in Rajkot since 1986.</p>
         </div>
         <div>
@@ -753,13 +759,13 @@
       <div class="foot-cert">
         <div class="foot-cert-eye"><span class="dot"></span>Recognised by</div>
         <div class="foot-cert-row">
-          <img src="img/logos/make-in-india.png" alt="Make in India" />
-          <img src="img/logos/atmanirbhar-bharat.jpg" alt="Atmanirbhar Bharat" />
-          <img src="img/logos/swachh-bharat.png" alt="Swachh Bharat Abhiyan" />
+          <img src="img/logos/make-in-india.png" alt="Make in India" loading="lazy" decoding="async" />
+          <img src="img/logos/atmanirbhar-bharat.jpg" alt="Atmanirbhar Bharat" loading="lazy" decoding="async" />
+          <img src="img/logos/swachh-bharat.png" alt="Swachh Bharat Abhiyan" loading="lazy" decoding="async" />
           <span class="foot-cert-div"></span>
-          <img src="img/logos/cert1.jpg" alt="Certification" />
-          <img src="img/logos/cert2.png" alt="Certification" />
-          <img src="img/logos/cert3.png" alt="ISO 9001:2008" />
+          <img src="img/logos/cert1.jpg" alt="Certification" loading="lazy" decoding="async" />
+          <img src="img/logos/cert2.png" alt="Certification" loading="lazy" decoding="async" />
+          <img src="img/logos/cert3.png" alt="ISO 9001:2008" loading="lazy" decoding="async" />
         </div>
       </div>
       <div class="foot-bottom">

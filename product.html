@@ -13,6 +13,10 @@
   <link rel="canonical" href="https://www.unitechmachines.in/product.html" />
   <meta name="theme-color" content="#0E8A47" />
   <link rel="icon" href="img/logos/fevicon.png" />
+  <link rel="apple-touch-icon" href="img/logos/unitech-logo-rounded.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="format-detection" content="telephone=yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -32,8 +36,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/base.css" />
+  <!-- Published theme (overwritten by Theme Studio → Publish to site). Loads BEFORE customizer JS so visitors get the published theme with no flash. -->
+  <link rel="stylesheet" href="css/theme-published.css" id="utm-theme-published" />
   <!-- Theme Studio — live color/font customizer. Activates with ?customize or Ctrl+Shift+T -->
-  <script src="js/theme-customizer.js"></script>
+  <script src="js/theme-customizer.js" defer></script>
   <style>
     body{ background: var(--ink-2); }
 
@@ -275,7 +281,7 @@
   <header class="masthead">
     <div class="wrap masthead-inner">
       <div class="left">Vol. 04 · Plate No. <b id="plate-no" style="color: var(--bone);">XII</b></div>
-      <div class="center"><img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo" data-utm-logo /><small>The Workshop Journal · est. 1986</small></div>
+      <div class="center"><img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo" data-utm-logo loading="eager" decoding="async" fetchpriority="high" /><small>The Workshop Journal · est. 1986</small></div>
       <div class="right">ISO 9001 · GST 24ADLPV8104E1ZI</div>
     </div>
   </header>
@@ -309,7 +315,7 @@
       <div class="pdp-grid">
         <!-- Plate (photo) -->
         <div class="plate-frame">
-          <img id="p-img" src="img/products/heavy-duty-gear-head-lathe-machine.jpg" alt="Product plate" />
+          <img id="p-img" src="img/products/heavy-duty-gear-head-lathe-machine.jpg" alt="Product plate" loading="eager" decoding="async" fetchpriority="high" />
           <div class="inner-frame"></div>
           <span class="corner">FIG. I</span>
           <div class="annot a1">A · Headstock</div>
@@ -467,22 +473,22 @@
 
       <div class="related-grid">
         <a class="rel-card" href="product.html?id=all-geared-high-speed-lathe-machine">
-          <div class="rel-photo"><img src="img/products/all-geared-high-speed-lathe-machine.jpg" alt="" /><span class="lbl">UT/AG-12</span></div>
+          <div class="rel-photo"><img src="img/products/all-geared-high-speed-lathe-machine.jpg" alt="" loading="lazy" decoding="async" /><span class="lbl">UT/AG-12</span></div>
           <h4>All Geared High Speed Lathe</h4>
           <div class="row"><span class="price">From ₹ 3,50,000</span><span class="arrow">→</span></div>
         </a>
         <a class="rel-card" href="product.html?id=16-feet-heavy-duty-plano-lathe">
-          <div class="rel-photo"><img src="img/products/heavy-duty-plano-type-lathe-machine.jpg" alt="" /><span class="lbl">UT/PL-16</span></div>
+          <div class="rel-photo"><img src="img/products/heavy-duty-plano-type-lathe-machine.jpg" alt="" loading="lazy" decoding="async" /><span class="lbl">UT/PL-16</span></div>
           <h4>16-Foot Plano Type Lathe</h4>
           <div class="row"><span class="price">From ₹ 4,62,000</span><span class="arrow">→</span></div>
         </a>
         <a class="rel-card" href="product.html?id=7-feet-heavy-duty-lathe">
-          <div class="rel-photo"><img src="img/products/7-feet-heavy-duty-lathe-machines.jpg" alt="" /><span class="lbl">UT/HD-7</span></div>
+          <div class="rel-photo"><img src="img/products/7-feet-heavy-duty-lathe-machines.jpg" alt="" loading="lazy" decoding="async" /><span class="lbl">UT/HD-7</span></div>
           <h4>7-Foot Heavy Duty Lathe</h4>
           <div class="row"><span class="price">From ₹ 1,40,998</span><span class="arrow">→</span></div>
         </a>
         <a class="rel-card" href="product.html?id=extra-heavy-duty-cone-pulley-lathe-he-800mm">
-          <div class="rel-photo"><img src="img/products/extra-heavy-duty-cone-pulley-lathe-machine.jpg" alt="" /><span class="lbl">UT/CP-800</span></div>
+          <div class="rel-photo"><img src="img/products/extra-heavy-duty-cone-pulley-lathe-machine.jpg" alt="" loading="lazy" decoding="async" /><span class="lbl">UT/CP-800</span></div>
           <h4>Extra Heavy Cone Pulley · 800 mm</h4>
           <div class="row"><span class="price">From ₹ 4,26,000</span><span class="arrow">→</span></div>
         </a>
@@ -514,7 +520,7 @@
     <div class="wrap">
       <div class="grid">
         <div>
-          <img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo sm" data-utm-logo />
+          <img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo sm" data-utm-logo loading="lazy" decoding="async" />
           <div class="title-sub">The Workshop Journal · Vol. 04 · 2026. Heavy-duty lathes &amp; metalworking machinery, made in Rajkot since 1986.</div>
         </div>
         <div>

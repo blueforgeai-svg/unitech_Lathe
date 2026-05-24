@@ -13,6 +13,10 @@
   <link rel="canonical" href="https://www.unitechmachines.in/contact.html" />
   <meta name="theme-color" content="#0E8A47" />
   <link rel="icon" href="img/logos/fevicon.png" />
+  <link rel="apple-touch-icon" href="img/logos/unitech-logo-rounded.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="format-detection" content="telephone=yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -32,8 +36,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/base.css" />
+  <!-- Published theme (overwritten by Theme Studio → Publish to site). Loads BEFORE customizer JS so visitors get the published theme with no flash. -->
+  <link rel="stylesheet" href="css/theme-published.css" id="utm-theme-published" />
   <!-- Theme Studio — live color/font customizer. Activates with ?customize or Ctrl+Shift+T -->
-  <script src="js/theme-customizer.js"></script>
+  <script src="js/theme-customizer.js" defer></script>
   <style>
     body{ background: var(--ink-2); }
 
@@ -255,7 +261,7 @@
   <header class="masthead">
     <div class="wrap masthead-inner">
       <div class="left">Vol. 04 · The Inquiry Desk</div>
-      <div class="center"><img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo" data-utm-logo /><small>The Workshop Journal · est. 1986</small></div>
+      <div class="center"><img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo" data-utm-logo loading="eager" decoding="async" fetchpriority="high" /><small>The Workshop Journal · est. 1986</small></div>
       <div class="right">Replies within 48 hrs</div>
     </div>
   </header>
@@ -487,7 +493,7 @@
     <div class="wrap">
       <div class="grid">
         <div>
-          <img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo sm" data-utm-logo />
+          <img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo sm" data-utm-logo loading="lazy" decoding="async" />
           <div class="title-sub">The Workshop Journal · Vol. 04 · 2026. Heavy-duty lathes &amp; metalworking machinery, made in Rajkot since 1986.</div>
         </div>
         <div>

@@ -18,6 +18,7 @@
   const STICKY_KEY = 'utm-studio-enabled';
   const STYLE_ID = 'utm-theme-overrides';
   const FONT_LINK_ID = 'utm-theme-fonts';
+  const PUBLISHED_CSS_LINK_ID = 'utm-theme-published';
 
   // ---------- Surface presets (semantic palette swaps) ----------
   const SURFACES = {
@@ -765,6 +766,20 @@ body{ color: var(--bone); }
     background: var(--brand, #0E8A47); border-color: transparent; color: #fff;
   }
   #utm-studio .foot button.primary:hover{ filter: brightness(1.1); }
+  #utm-studio .foot-publish{
+    padding: 4px 12px 0; background: transparent;
+  }
+  #utm-studio .foot-publish button{
+    flex: 1; padding: 11px 10px;
+    border: 1px solid var(--brand, #0E8A47);
+    background: linear-gradient(180deg, color-mix(in oklab, var(--brand, #0E8A47) 20%, transparent), color-mix(in oklab, var(--brand, #0E8A47) 6%, transparent));
+    color: #f5f4ef;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px; font-weight: 500; letter-spacing: .01em;
+    border-radius: 7px; cursor: pointer;
+    transition: filter .15s;
+  }
+  #utm-studio .foot-publish button:hover{ filter: brightness(1.15); }
   #utm-studio .foot-exit{ padding: 8px 12px 12px; background: transparent; }
   #utm-studio .foot-exit button{
     flex: 1; padding: 7px 8px;
@@ -793,6 +808,410 @@ body{ color: var(--bone); }
     #utm-studio{
       right: 8px; left: 8px; width: auto; bottom: 70px;
     }
+  }
+
+  /* ============================================================
+     Publish-to-site modal
+     ============================================================ */
+  #utm-studio .upm{
+    position: fixed; inset: 0; z-index: 2147483647;
+    display: grid; place-items: center;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  #utm-studio .upm[hidden]{ display: none; }
+  #utm-studio .upm-back{
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  #utm-studio .upm-card{
+    position: relative;
+    width: min(520px, calc(100vw - 32px));
+    max-height: calc(100vh - 64px);
+    background: #0e0e0e;
+    color: #f5f4ef;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 14px;
+    box-shadow: 0 40px 100px rgba(0,0,0,.6);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    animation: upmIn .18s ease-out;
+  }
+  @keyframes upmIn { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+  #utm-studio .upm-head{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  #utm-studio .upm-head h3{
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+    color: #f5f4ef; font-weight: 500; margin: 0;
+  }
+  #utm-studio .upm-head button{
+    width: 28px; height: 28px; border-radius: 7px;
+    background: rgba(255,255,255,.04); color: #f5f4ef;
+    border: 1px solid rgba(255,255,255,.08);
+    display: grid; place-items: center;
+    font-size: 16px; cursor: pointer;
+  }
+  #utm-studio .upm-head button:hover{ background: rgba(255,255,255,.10); }
+
+  #utm-studio .upm-body{
+    padding: 18px 22px 8px;
+    overflow-y: auto;
+    flex: 1;
+  }
+  #utm-studio .upm-server{
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 7px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .06em;
+    color: rgba(245,244,239,.8);
+    margin-bottom: 14px;
+  }
+  #utm-studio .upm-server .upm-dot{
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #888;
+    flex: 0 0 8px;
+  }
+  #utm-studio .upm-server.ok .upm-dot{ background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.18); }
+  #utm-studio .upm-server.warn .upm-dot{ background: #f59e0b; box-shadow: 0 0 0 3px rgba(245,158,11,.18); }
+  #utm-studio .upm-server.err .upm-dot{ background: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.18); }
+  #utm-studio .upm-intro{
+    font-size: 13px; line-height: 1.5;
+    color: rgba(245,244,239,.75);
+    margin: 0 0 16px;
+  }
+  #utm-studio .upm-intro strong{ color: #f5f4ef; font-weight: 600; }
+
+  #utm-studio .upm-section{ margin-bottom: 16px; }
+  #utm-studio .upm-sec-h{
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: rgba(245,244,239,.5);
+    margin-bottom: 8px;
+  }
+  #utm-studio .upm-diff{
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    line-height: 1.6;
+    max-height: 200px; overflow-y: auto;
+  }
+  #utm-studio .upm-diff .upm-d-row{
+    display: grid; grid-template-columns: 88px 1fr;
+    gap: 10px; align-items: baseline;
+    padding: 3px 0;
+  }
+  #utm-studio .upm-diff .upm-d-key{
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10.5px; letter-spacing: .08em;
+    color: rgba(245,244,239,.5);
+    text-transform: uppercase;
+  }
+  #utm-studio .upm-diff .upm-d-val{ color: #f5f4ef; }
+  #utm-studio .upm-diff .upm-d-from{
+    color: rgba(245,244,239,.4);
+    text-decoration: line-through;
+    margin-right: 6px;
+  }
+  #utm-studio .upm-diff .upm-d-arrow{ color: rgba(245,244,239,.4); margin: 0 4px; }
+  #utm-studio .upm-diff .upm-d-to{ color: #f5f4ef; }
+  #utm-studio .upm-diff .upm-d-chip{
+    display: inline-block; width: 11px; height: 11px; border-radius: 3px;
+    border: 1px solid rgba(255,255,255,.15);
+    vertical-align: -1px; margin-right: 5px;
+  }
+  #utm-studio .upm-diff .upm-d-empty{ color: rgba(245,244,239,.4); font-style: italic; }
+  #utm-studio .upm-diff .upm-d-nochanges{
+    text-align: center; padding: 12px;
+    color: rgba(245,244,239,.5);
+    font-style: italic;
+  }
+
+  #utm-studio .upm-form{ display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+  #utm-studio .upm-row{ display: flex; flex-direction: column; gap: 6px; }
+  #utm-studio .upm-lbl{
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: rgba(245,244,239,.55);
+  }
+  #utm-studio .upm-lbl code{
+    font-family: inherit; color: #f5f4ef;
+    background: rgba(255,255,255,.08); padding: 1px 5px; border-radius: 3px;
+  }
+  #utm-studio .upm-form input{
+    padding: 10px 12px;
+    background: rgba(255,255,255,.04);
+    color: #f5f4ef;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 7px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  #utm-studio .upm-form input:focus{ border-color: var(--brand, #0E8A47); }
+  #utm-studio .upm-form input.ok{ border-color: #22c55e; }
+
+  #utm-studio .upm-status{
+    margin-top: 4px;
+    padding: 10px 12px;
+    border-radius: 7px;
+    font-size: 12.5px; line-height: 1.5;
+  }
+  #utm-studio .upm-status.info{ background: rgba(255,255,255,.04); color: rgba(245,244,239,.85); border: 1px solid rgba(255,255,255,.08); }
+  #utm-studio .upm-status.ok  { background: rgba(34,197,94,.10); color: #6ee7b7; border: 1px solid rgba(34,197,94,.30); }
+  #utm-studio .upm-status.err { background: rgba(239,68,68,.10); color: #fca5a5; border: 1px solid rgba(239,68,68,.30); }
+  #utm-studio .upm-status a{ color: inherit; text-decoration: underline; }
+
+  #utm-studio .upm-foot{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 22px;
+    border-top: 1px solid rgba(255,255,255,.08);
+    background: rgba(0,0,0,.2);
+    gap: 10px;
+  }
+  #utm-studio .upm-foot-r{ display: flex; gap: 8px; align-items: center; }
+  #utm-studio .upm-foot button{
+    padding: 9px 14px;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.04);
+    color: #f5f4ef;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: filter .15s, background .15s;
+  }
+  #utm-studio .upm-foot button:hover{ background: rgba(255,255,255,.08); }
+  #utm-studio .upm-foot button:disabled{ opacity: .4; cursor: not-allowed; }
+  #utm-studio .upm-foot button.upm-revert{
+    background: transparent;
+    border-color: rgba(255,255,255,.10);
+    color: rgba(245,244,239,.6);
+    font-size: 11px;
+  }
+  #utm-studio .upm-foot button.upm-revert:hover{ color: #f5f4ef; }
+  #utm-studio .upm-foot button.upm-go{
+    background: var(--brand, #0E8A47);
+    border-color: transparent;
+    color: #fff;
+    padding: 10px 20px;
+  }
+  #utm-studio .upm-foot button.upm-go:hover:not(:disabled){ filter: brightness(1.12); }
+  #utm-studio .upm-foot button.upm-go:disabled{ background: rgba(255,255,255,.06); color: rgba(245,244,239,.4); }
+
+  #utm-studio .upm-spin{
+    display: inline-block; width: 12px; height: 12px;
+    border: 2px solid rgba(245,244,239,.3); border-top-color: #f5f4ef;
+    border-radius: 50%; vertical-align: -2px; margin-right: 8px;
+    animation: upmSpin .8s linear infinite;
+  }
+  @keyframes upmSpin { to { transform: rotate(360deg); } }
+
+  /* ============================================================
+     Send-to-Claude modal specifics
+     ============================================================ */
+  #utm-studio .upm-sec-hint{
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    color: rgba(245,244,239,.4);
+    letter-spacing: 0;
+    text-transform: none;
+    margin-left: 6px;
+  }
+  #utm-studio .upm-textarea{
+    width: 100%;
+    min-height: 180px;
+    max-height: 280px;
+    padding: 12px;
+    background: rgba(0,0,0,.4);
+    color: rgba(245,244,239,.85);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 7px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11.5px;
+    line-height: 1.45;
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+    white-space: pre;
+    overflow: auto;
+  }
+  #utm-studio .upm-textarea:focus{ border-color: var(--brand, #0E8A47); }
+  #utm-studio .upm-intro code{
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11.5px;
+    background: rgba(255,255,255,.06);
+    padding: 1px 5px; border-radius: 3px;
+    color: #f5f4ef;
+  }
+  #utm-studio .upm-foot button.upm-go.ok{
+    background: #22c55e !important;
+  }
+
+  /* ============================================================
+     Setup wizard (shown when backend not configured)
+     ============================================================ */
+  #utm-studio .upm-wizard{
+    background: rgba(255,255,255,.02);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 4px;
+  }
+  #utm-studio .upm-wiz-head{
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  #utm-studio .upm-wiz-title{
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: #f5f4ef; font-weight: 500;
+  }
+  #utm-studio .upm-wiz-sub{
+    font-size: 12px; color: rgba(245,244,239,.55);
+    margin-top: 6px;
+  }
+  #utm-studio .upm-wiz-step{
+    display: grid; grid-template-columns: 28px 1fr; gap: 14px;
+    margin-bottom: 18px;
+  }
+  #utm-studio .upm-wiz-step:last-child{ margin-bottom: 0; }
+  #utm-studio .upm-wiz-num{
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--brand, #0E8A47);
+    color: #fff;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px; font-weight: 600;
+    display: grid; place-items: center;
+    margin-top: 1px;
+  }
+  #utm-studio .upm-wiz-body{ min-width: 0; }
+  #utm-studio .upm-wiz-h{
+    font-size: 13px; font-weight: 600; color: #f5f4ef;
+    margin-bottom: 6px;
+  }
+  #utm-studio .upm-wiz-p{
+    font-size: 12.5px; line-height: 1.55;
+    color: rgba(245,244,239,.7);
+    margin-bottom: 10px;
+  }
+  #utm-studio .upm-wiz-p code{
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11.5px;
+    background: rgba(255,255,255,.06);
+    padding: 1px 5px; border-radius: 3px;
+    color: #f5f4ef;
+  }
+  #utm-studio .upm-wiz-p strong{ color: #f5f4ef; font-weight: 600; }
+  #utm-studio .upm-wiz-p em{ color: #f5f4ef; font-style: normal; font-weight: 500; }
+  #utm-studio .upm-wiz-list{
+    margin: 8px 0 8px 0; padding-left: 18px;
+    color: rgba(245,244,239,.7);
+    font-size: 12.5px; line-height: 1.7;
+  }
+  #utm-studio .upm-wiz-list li{ margin-bottom: 2px; }
+  #utm-studio .upm-wiz-list code{
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    background: rgba(255,255,255,.06);
+    padding: 1px 5px; border-radius: 3px;
+    color: #f5f4ef;
+  }
+
+  #utm-studio .upm-wiz-pwrow{
+    display: flex; gap: 6px; align-items: stretch;
+  }
+  #utm-studio .upm-wiz-pwrow input{
+    flex: 1; padding: 9px 12px;
+    background: rgba(255,255,255,.05);
+    color: #f5f4ef;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    outline: none;
+    letter-spacing: .02em;
+  }
+
+  #utm-studio .upm-wiz-kv{
+    background: rgba(0,0,0,.25);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 7px;
+    padding: 6px 0;
+    margin: 8px 0;
+  }
+  #utm-studio .upm-wiz-kv-row{
+    display: grid; grid-template-columns: 160px 1fr auto; gap: 10px;
+    align-items: center;
+    padding: 8px 12px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+  }
+  #utm-studio .upm-wiz-kv-row + .upm-wiz-kv-row{ border-top: 1px solid rgba(255,255,255,.04); }
+  #utm-studio .upm-wiz-k{
+    color: var(--brand, #0E8A47);
+    font-weight: 500;
+    letter-spacing: .04em;
+  }
+  #utm-studio .upm-wiz-v{
+    color: #f5f4ef;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  #utm-studio .upm-wiz-v.dim{ color: rgba(245,244,239,.45); font-style: italic; }
+
+  #utm-studio .upm-wiz-btn{
+    padding: 8px 14px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.04);
+    color: #f5f4ef;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px; font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background .15s, filter .15s;
+  }
+  #utm-studio .upm-wiz-btn:hover{ background: rgba(255,255,255,.08); }
+  #utm-studio .upm-wiz-btn.primary{
+    background: var(--brand, #0E8A47);
+    border-color: transparent;
+    color: #fff;
+  }
+  #utm-studio .upm-wiz-btn.primary:hover:not(:disabled){ filter: brightness(1.12); }
+  #utm-studio .upm-wiz-btn:disabled{ opacity: .5; cursor: not-allowed; }
+  #utm-studio .upm-wiz-btn.ico{
+    padding: 0; width: 36px;
+    display: grid; place-items: center;
+    font-size: 14px;
+  }
+  #utm-studio .upm-wiz-btn.ico.sm{ width: 28px; padding: 4px; font-size: 12px; }
+  #utm-studio .upm-wiz-btn.ok{ background: #22c55e !important; border-color: transparent; color: #fff; }
+  #utm-studio .upm-wiz-pollnote{
+    margin-top: 10px;
+    font-size: 12px;
+    color: rgba(245,244,239,.6);
+    padding: 8px 10px;
+    background: rgba(255,255,255,.03);
+    border-radius: 6px;
+  }
+  #utm-studio .upm-wiz-pollnote.ok{
+    background: rgba(34,197,94,.10); color: #6ee7b7;
+    border: 1px solid rgba(34,197,94,.30);
+  }
+  #utm-studio .upm-wiz-pollnote.err{
+    background: rgba(239,68,68,.10); color: #fca5a5;
+    border: 1px solid rgba(239,68,68,.30);
   }
   `;
 
@@ -893,13 +1312,49 @@ body{ color: var(--bone); }
       <div class="foot">
         <button data-discard title="Discard unsaved changes">Discard</button>
         <button data-reset title="Reset to original">Reset</button>
-        <button data-copy title="Copy CSS overrides">Copy CSS</button>
-        <button class="primary save-state" data-save title="Save changes">Save</button>
+        <button class="primary save-state" data-save title="Save in this browser">Save</button>
+      </div>
+      <div class="foot foot-publish">
+        <button data-publish title="Open the modal that prepares a prompt to send to Claude">✨ Publish to live site</button>
       </div>
       <div class="foot foot-exit">
         <button data-exit title="Hide the Studio gear on all pages">Exit Studio mode</button>
       </div>
       <div class="toast" data-toast></div>
+
+      <!-- Send-to-Claude modal -->
+      <div class="upm" data-publish-modal hidden>
+        <div class="upm-back" data-publish-cancel></div>
+        <div class="upm-card">
+          <div class="upm-head">
+            <h3>Send theme to Claude</h3>
+            <button data-publish-cancel title="Close">×</button>
+          </div>
+          <div class="upm-body">
+            <p class="upm-intro">
+              Your tweaks are live in this browser only. To make them live for <strong>every visitor</strong>,
+              copy the block below and paste it into your chat with Claude.
+              Claude will update <code>css/theme-published.css</code> and the change ships through your normal GitHub → Cloudflare flow.
+            </p>
+
+            <div class="upm-section">
+              <div class="upm-sec-h">Settings summary</div>
+              <div class="upm-diff" data-publish-summary></div>
+            </div>
+
+            <div class="upm-section">
+              <div class="upm-sec-h">Prompt for Claude <span class="upm-sec-hint">(copy and paste this)</span></div>
+              <textarea class="upm-textarea" data-publish-prompt readonly></textarea>
+            </div>
+
+            <div class="upm-status" data-publish-status hidden></div>
+          </div>
+          <div class="upm-foot">
+            <button data-publish-cancel class="upm-cancel">Cancel</button>
+            <button data-publish-copy class="upm-go">⎘ Copy prompt</button>
+          </div>
+        </div>
+      </div>
     `;
     return root;
   }
@@ -1146,15 +1601,9 @@ body{ color: var(--bone); }
       panel = null;
       toggleBtn = null;
     });
-    panel.querySelector('[data-copy]').addEventListener('click', () => {
-      const css = buildCSS(state);
-      const display = getFontById(DISPLAY_FONTS, state.displayFont);
-      const sans = getFontById(SANS_FONTS, state.sansFont);
-      const mono = getFontById(MONO_FONTS, state.monoFont);
-      const families = [display.google, sans.google, mono.google].filter(Boolean);
-      const fontLink = `<link href="https://fonts.googleapis.com/css2?${families.map(f => 'family=' + f).join('&')}&display=swap" rel="stylesheet" />`;
-      const out = `/* Theme Studio — generated ${new Date().toISOString().slice(0,10)} */\n${css}\n/* In <head>: */\n/* ${fontLink} */`;
-      navigator.clipboard.writeText(out).then(() => toast('CSS copied'));
+    // Publish: open the multi-step modal (preview → type PUBLISH → password → commit)
+    panel.querySelector('[data-publish]').addEventListener('click', () => {
+      openPublishModal();
     });
     panel.querySelector('[data-save]').addEventListener('click', () => {
       saveConfig(state);
@@ -1188,6 +1637,7 @@ body{ color: var(--bone); }
       head.classList.remove('dragging');
     });
 
+    bindPublishModal();
     syncUI();
   }
 
@@ -1218,6 +1668,178 @@ body{ color: var(--bone); }
     panel.querySelector('[data-weight-val]').textContent = state.headingWeight;
     panel.querySelector('[data-radius]').value = state.radius;
     panel.querySelector('[data-radius-val]').textContent = state.radius + 'px';
+  }
+
+  // ============================================================
+  // Send-to-Claude modal: open / close / copy a prompt for chat
+  // ============================================================
+
+  const KEY_LABELS = {
+    brand:         'Brand color',
+    surface:       'Surface / background',
+    displayFont:   'Display font (headings)',
+    sansFont:      'Body font',
+    monoFont:      'Mono font',
+    headingWeight: 'Heading weight',
+    radius:        'Corner radius',
+    logo:          'Logo',
+    accent:        'Accent',
+  };
+
+  // Pretty value for the summary list.
+  function prettyValue(key, val) {
+    if (val == null || val === '') return '(not set)';
+    switch (key) {
+      case 'brand':
+      case 'accent':       return String(val).toUpperCase();
+      case 'surface':      return SURFACES[val] ? SURFACES[val].label : val;
+      case 'displayFont':  return (getFontById(DISPLAY_FONTS, val) || {}).label || val;
+      case 'sansFont':     return (getFontById(SANS_FONTS, val) || {}).label || val;
+      case 'monoFont':     return (getFontById(MONO_FONTS, val) || {}).label || val;
+      case 'logo': {
+        const l = LOGOS.find(x => x.id === val);
+        return l ? l.label : val;
+      }
+      case 'radius':        return `${val}px`;
+      case 'headingWeight': return ({300: 'Light (300)', 400: 'Regular (400)', 500: 'Medium (500)'})[val] || String(val);
+      default:              return String(val);
+    }
+  }
+
+  // Build the bullet list of current settings shown in the modal.
+  function renderSummary() {
+    const el = panel.querySelector('[data-publish-summary]');
+    const keys = Object.keys(KEY_LABELS).filter(k => state[k] != null && state[k] !== '');
+    el.innerHTML = keys.map(k => {
+      const label = KEY_LABELS[k];
+      const val = prettyValue(k, state[k]);
+      const chip = (k === 'brand' || k === 'accent')
+        ? `<span class="upm-d-chip" style="background:${state[k]}"></span>`
+        : '';
+      return `<div class="upm-d-row">
+        <div class="upm-d-key">${label}</div>
+        <div class="upm-d-val">${chip}${val}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Status banner (info / ok / err) inside the modal.
+  function setPublishStatus(kind, html) {
+    const el = panel.querySelector('[data-publish-status]');
+    if (!html) { el.hidden = true; el.textContent = ''; return; }
+    el.hidden = false;
+    el.className = 'upm-status ' + kind;
+    el.innerHTML = html;
+  }
+
+  // Compose the full prompt (markdown + CSS block) the user pastes into chat.
+  function buildClaudePrompt() {
+    const css      = wrapPublishedCss(buildCSS(state), state);
+    const display  = getFontById(DISPLAY_FONTS, state.displayFont);
+    const sans     = getFontById(SANS_FONTS, state.sansFont);
+    const mono     = getFontById(MONO_FONTS, state.monoFont);
+    const surfaceLabel = SURFACES[state.surface] ? SURFACES[state.surface].label : state.surface;
+    const logoMeta = LOGOS.find(l => l.id === state.logo);
+
+    const settingsList = [
+      `- Brand color: ${state.brand}`,
+      `- Surface: ${surfaceLabel}`,
+      `- Display font: ${display.label}`,
+      `- Body font: ${sans.label}`,
+      `- Mono font: ${mono.label}`,
+      `- Heading weight: ${state.headingWeight}`,
+      `- Corner radius: ${state.radius}px`,
+      `- Logo: ${logoMeta ? logoMeta.label : state.logo} (${logoMeta ? logoMeta.src : ''})`,
+    ].join('\n');
+
+    return `Please publish this theme to the live site.
+
+**What to do:**
+1. Overwrite \`css/theme-published.css\` with the CSS block below (replace its full contents).
+2. If the logo changed, also update the default \`<img data-utm-logo src="…">\` value in every HTML page so first-time visitors see the right logo.
+3. Commit + push so Cloudflare Pages redeploys.
+
+**Settings:**
+${settingsList}
+
+**CSS to write into \`css/theme-published.css\`:**
+
+\`\`\`css
+${css}
+\`\`\`
+`;
+  }
+
+  function openPublishModal() {
+    const modal = panel.querySelector('[data-publish-modal]');
+    modal.hidden = false;
+    renderSummary();
+    const prompt = buildClaudePrompt();
+    panel.querySelector('[data-publish-prompt]').value = prompt;
+    setPublishStatus(null, '');
+    // Reset the copy button label
+    const btn = panel.querySelector('[data-publish-copy]');
+    btn.textContent = '⎘ Copy prompt';
+    btn.classList.remove('ok');
+  }
+
+  function closePublishModal() {
+    panel.querySelector('[data-publish-modal]').hidden = true;
+  }
+
+  function bindPublishModal() {
+    panel.querySelectorAll('[data-publish-cancel]').forEach(el => {
+      el.addEventListener('click', closePublishModal);
+    });
+    panel.querySelector('[data-publish-copy]').addEventListener('click', async () => {
+      const text = panel.querySelector('[data-publish-prompt]').value;
+      const btn  = panel.querySelector('[data-publish-copy]');
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '✓ Copied — now paste in your Claude chat';
+        btn.classList.add('ok');
+        setPublishStatus('ok',
+          'Copied! Now switch to your chat with Claude and paste. Claude will overwrite <code>css/theme-published.css</code> and the change goes live after the normal GitHub → Cloudflare deploy.'
+        );
+        // Also save locally so the admin's own browser shows the theme immediately.
+        saveConfig(state);
+        savedState = { ...state };
+        updateDirtyUI();
+      } catch (e) {
+        // Fallback: select the textarea so user can Cmd/Ctrl+C
+        const ta = panel.querySelector('[data-publish-prompt]');
+        ta.focus();
+        ta.select();
+        setPublishStatus('err',
+          'Could not auto-copy. The text is selected — press <strong>Ctrl/Cmd + C</strong> to copy, then paste into your Claude chat.'
+        );
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      const modal = panel && panel.querySelector('[data-publish-modal]');
+      if (modal && !modal.hidden && e.key === 'Escape') { closePublishModal(); }
+    });
+  }
+
+  // Wrap the inline CSS with a header comment + Google-Fonts @import,
+  // so the file Claude writes is self-contained.
+  function wrapPublishedCss(css, settings) {
+    const display = getFontById(DISPLAY_FONTS, settings.displayFont);
+    const sans    = getFontById(SANS_FONTS, settings.sansFont);
+    const mono    = getFontById(MONO_FONTS, settings.monoFont);
+    const families = [display.google, sans.google, mono.google].filter(Boolean);
+    const fontUrl = `https://fonts.googleapis.com/css2?${families.map(f => 'family=' + f).join('&')}&display=swap`;
+    const stamp = new Date().toISOString();
+    return `/* ============================================================
+   Uni-Tech Machines — Published Theme
+   ------------------------------------------------------------
+   Generated by Theme Studio · ${stamp}
+   ============================================================ */
+
+@import url("${fontUrl}");
+
+${css}`;
   }
 
   function commit(msg) {

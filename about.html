@@ -13,6 +13,10 @@
   <link rel="canonical" href="https://www.unitechmachines.in/about.html" />
   <meta name="theme-color" content="#0E8A47" />
   <link rel="icon" href="img/logos/fevicon.png" />
+  <link rel="apple-touch-icon" href="img/logos/unitech-logo-rounded.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="format-detection" content="telephone=yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -32,8 +36,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/base.css" />
+  <!-- Published theme (overwritten by Theme Studio → Publish to site). Loads BEFORE customizer JS so visitors get the published theme with no flash. -->
+  <link rel="stylesheet" href="css/theme-published.css" id="utm-theme-published" />
   <!-- Theme Studio — live color/font customizer. Activates with ?customize or Ctrl+Shift+T -->
-  <script src="js/theme-customizer.js"></script>
+  <script src="js/theme-customizer.js" defer></script>
   <style>
     body{ background: var(--ink-2); }
 
@@ -251,7 +257,7 @@
   <header class="masthead">
     <div class="wrap masthead-inner">
       <div class="left">Vol. 04 · Workshop dossier</div>
-      <div class="center"><img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo" data-utm-logo /><small>The Workshop Journal · est. 1986</small></div>
+      <div class="center"><img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo" data-utm-logo loading="eager" decoding="async" fetchpriority="high" /><small>The Workshop Journal · est. 1986</small></div>
       <div class="right">Rajkot · Gujarat · India</div>
     </div>
   </header>
@@ -313,27 +319,27 @@
       </div>
       <div class="plant-grid">
         <div class="pframe tall">
-          <img src="img/products/uni-tech-geared-lathes.jpg" alt="Factory floor at Uni-Tech Machines, Rajkot" />
+          <img src="img/products/uni-tech-geared-lathes.jpg" alt="Factory floor at Uni-Tech Machines, Rajkot" loading="eager" decoding="async" fetchpriority="high" />
           <div class="corner">FIG. I</div>
           <div class="stamp"><em>Plate 01</em> · Factory floor · March 2026</div>
         </div>
         <div class="pframe">
-          <img src="img/products/uni-tech-geared-lathes.jpg" alt="Geared lathes line" />
+          <img src="img/products/uni-tech-geared-lathes.jpg" alt="Geared lathes line" loading="lazy" decoding="async" />
           <div class="corner">FIG. II</div>
           <div class="stamp"><em>Plate 02</em> · Geared lathe assembly</div>
         </div>
         <div class="pframe">
-          <img src="img/products/heavy-duty-gear-head-lathe-machine.jpg" alt="Heavy duty gear head lathe" />
+          <img src="img/products/heavy-duty-gear-head-lathe-machine.jpg" alt="Heavy duty gear head lathe" loading="lazy" decoding="async" />
           <div class="corner">FIG. III</div>
           <div class="stamp"><em>Plate 03</em> · Heavy duty bay</div>
         </div>
         <div class="pframe">
-          <img src="img/products/all-geared-high-speed-lathe-machine.jpg" alt="All geared high speed lathe" />
+          <img src="img/products/all-geared-high-speed-lathe-machine.jpg" alt="All geared high speed lathe" loading="lazy" decoding="async" />
           <div class="corner">FIG. IV</div>
           <div class="stamp"><em>Plate 04</em> · High-speed line</div>
         </div>
         <div class="pframe">
-          <img src="img/products/heavy-duty-plano-type-lathe-machine.jpg" alt="Plano-type heavy duty lathe" />
+          <img src="img/products/heavy-duty-plano-type-lathe-machine.jpg" alt="Plano-type heavy duty lathe" loading="lazy" decoding="async" />
           <div class="corner">FIG. V</div>
           <div class="stamp"><em>Plate 05</em> · Plano-type assembly</div>
         </div>
@@ -347,7 +353,7 @@
       <div class="smark"><span>§ 03 · From the founder</span><span class="line"></span><span>K. Vachhani · since 1986</span></div>
       <div class="quote-grid">
         <div class="qphoto">
-          <img src="img/products/uni-tech-geared-lathes.jpg" alt="Founder portrait placeholder" />
+          <img src="img/products/uni-tech-geared-lathes.jpg" alt="Founder portrait placeholder" loading="lazy" decoding="async" />
           <div class="stamp"><em>Portrait</em> · K. Vachhani · Plot 04</div>
         </div>
         <div>
@@ -513,7 +519,7 @@
     <div class="wrap">
       <div class="grid">
         <div>
-          <img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo sm" data-utm-logo />
+          <img src="img/logos/unitech-logo-rounded.png" alt="Uni-Tech" class="brand-logo sm" data-utm-logo loading="lazy" decoding="async" />
           <div class="title-sub">The Workshop Journal · Vol. 04 · 2026. Heavy-duty lathes &amp; metalworking machinery, made in Rajkot since 1986.</div>
         </div>
         <div>
