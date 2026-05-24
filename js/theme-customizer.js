@@ -1360,6 +1360,13 @@ body{ color: var(--bone); }
   }
 
   // ---------- Mount ----------
+  // hasSavedTweaks: true only if the user clicked Save at least once.
+  // We use this to skip applying inline overrides on init when there's nothing
+  // saved — that way `css/theme-published.css` shows through cleanly for
+  // first-time visitors with no JS-applied overrides fighting it.
+  const hasSavedTweaks = (() => {
+    try { return !!localStorage.getItem(STORAGE_KEY); } catch(e){ return false; }
+  })();
   let savedState = loadConfig();
   let state = { ...savedState }; // working draft
   let panel = null;
@@ -1378,8 +1385,11 @@ body{ color: var(--bone); }
   }
 
   function init() {
-    // Apply saved config immediately
-    applyConfig(savedState);
+    // Apply saved config immediately — but ONLY if the user has actually saved
+    // tweaks. Otherwise let css/theme-published.css be the source of truth.
+    if (hasSavedTweaks) {
+      applyConfig(savedState);
+    }
 
     // If studio shouldn't activate, we're done
     if (!shouldOpen()) return;
