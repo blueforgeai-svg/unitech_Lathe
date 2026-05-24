@@ -1,0 +1,74 @@
+# =========================================================
+# Cloudflare Pages — global rules
+# Security headers, caching, and compression hints.
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+# =========================================================
+
+# --- ALL responses: security baseline ---
+/*
+  # Force HTTPS for two years incl. subdomains (safe to enable once you've
+  # confirmed every subdomain serves over HTTPS — Cloudflare does by default).
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+  # Block clickjacking: never allow this site to be framed by another origin.
+  X-Frame-Options: SAMEORIGIN
+
+  # Prevent MIME-sniffing: browsers must respect declared Content-Type.
+  X-Content-Type-Options: nosniff
+
+  # Modern referrer policy: send origin only on cross-origin, full URL on same-origin.
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Lock down dangerous browser APIs we don't use.
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), interest-cohort=()
+
+  # CORP/COEP: keep cross-origin resource sharing predictable.
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+
+  # Content Security Policy.
+  # - Fonts from Google Fonts (gstatic) ✓
+  # - Styles inline (we use <style> blocks) + Google Fonts CSS ✓
+  # - Scripts from same origin only (no third-party JS in production) — inline scripts allowed for JSON-LD + small bootstraps.
+  # - Images from same origin + https + data: for inline SVGs in JS
+  # - Connect: only same-origin (our /api/* functions)
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+
+# --- HTML: short browser cache, long CDN cache (so Cloudflare serves fast but updates within minutes) ---
+/*.html
+  Cache-Control: public, max-age=300, s-maxage=86400, must-revalidate
+/
+  Cache-Control: public, max-age=300, s-maxage=86400, must-revalidate
+
+# --- CSS / JS / fonts: long cache, revalidate via filename change ---
+/css/base.css
+  Cache-Control: public, max-age=604800, s-maxage=2592000
+/css/shared.css
+  Cache-Control: public, max-age=604800, s-maxage=2592000
+/js/site.js
+  Cache-Control: public, max-age=604800, s-maxage=2592000
+/js/machines-data.js
+  Cache-Control: public, max-age=604800, s-maxage=2592000
+/js/image-overrides.js
+  Cache-Control: public, max-age=604800, s-maxage=2592000
+/js/theme-customizer.js
+  Cache-Control: public, max-age=604800, s-maxage=2592000
+
+# --- Images: long cache (filenames are stable) ---
+/img/*
+  Cache-Control: public, max-age=2592000, s-maxage=31536000, immutable
+
+# --- Theme published CSS: short cache so a publish goes live fast ---
+/css/theme-published.css
+  Cache-Control: public, max-age=300, s-maxage=300, must-revalidate
+
+# --- Hide internal review canvas from search engines ---
+/review.html
+  X-Robots-Tag: noindex, nofollow
+
+# --- Sitemap / robots: short cache ---
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+  Content-Type: application/xml; charset=utf-8
+/robots.txt
+  Cache-Control: public, max-age=3600
