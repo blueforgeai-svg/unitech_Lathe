@@ -1,0 +1,25 @@
+{
+  "name": "Uni-Tech Machines",
+  "short_name": "Uni-Tech",
+  "description": "Heavy-duty lathe & industrial machinery manufacturer in Rajkot, India since 1986.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0E8A47",
+  "lang": "en-IN",
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "img/logos/unitech-logo-rounded.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/logos/fevicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ]
+}
