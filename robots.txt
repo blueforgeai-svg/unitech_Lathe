@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-
-# Disallow internal review canvas (design-only)
-Disallow: /review.html
-
-Sitemap: https://unitechlathe.com/sitemap.xml
